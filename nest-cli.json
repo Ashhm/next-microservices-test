@@ -1,0 +1,48 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": ".",
+  "monorepo": true,
+  "root": ".",
+  "compilerOptions": {
+    "webpack": false,
+    "tsConfigPath": "./tsconfig.json"
+  },
+  "projects": {
+    "media": {
+      "type": "application",
+      "root": "apps/media",
+      "entryFile": "main",
+      "sourceRoot": "apps/media/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/media/tsconfig.app.json"
+      }
+    },
+    "shared": {
+      "type": "library",
+      "root": "libs/shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/tsconfig.lib.json"
+      }
+    },
+    "parser": {
+      "type": "library",
+      "root": "libs/parser",
+      "entryFile": "index",
+      "sourceRoot": "libs/parser/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/parser/tsconfig.lib.json"
+      }
+    },
+    "networking-test": {
+      "type": "application",
+      "root": "apps/networking-test",
+      "entryFile": "main",
+      "sourceRoot": "apps/networking-test/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/networking-test/tsconfig.app.json"
+      }
+    }
+  }
+}
