@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MediaController #downloadFile not existing file should return an error 1`] = `
+Object {
+  "message": "ENOENT: no such file or directory, open '/mnt/d/tmp/nest-example/non-existing-file-name'",
+  "statusCode": 404,
+}
+`;
+
+exports[`MediaController #uploadFile should return saved file details 1`] = `
+Object {
+  "destination": "/mnt/d/tmp",
+  "encoding": "7bit",
+  "fieldname": "file",
+  "filename": Any<String>,
+  "mimetype": "application/json",
+  "originalname": "package.json",
+  "path": Any<String>,
+  "size": Any<Number>,
+}
+`;

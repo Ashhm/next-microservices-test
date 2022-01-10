@@ -43,6 +43,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/networking-test/tsconfig.app.json"
       }
+    },
+    "stats": {
+      "type": "application",
+      "root": "apps/stats",
+      "entryFile": "main",
+      "sourceRoot": "apps/stats/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/stats/tsconfig.app.json"
+      }
     }
   }
 }

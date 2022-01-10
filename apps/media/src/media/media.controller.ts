@@ -1,6 +1,8 @@
+import { ConfigurationNamespace } from '@app/shared/common/constants';
 import {
   Controller,
   Get,
+  HttpException,
   Inject,
   Logger,
   Param,
@@ -26,21 +28,26 @@ export class MediaController {
   @Get('/send-messages')
   async sendMessages() {
     const payload = [1, 2, 3];
-    await this.client.send<number>({ cmd: 'rpc' }, payload).subscribe((x) => this.logger.log(x));
-    await this.client.emit<number>('plain_pattern', 'Message body');
-    return 'res';
+    // RPC
+    this.client.send<number>({ cmd: 'rpc' }, payload).subscribe();
+    // Event
+    this.client.emit(ConfigurationNamespace.Application, 'Message body');
+
+    return 'OK';
   }
 
   @Get('/:filePath')
-  async download(
-    @Response({ passthrough: true }) res,
-    @Param('filePath') filePath: string,
-  ): Promise<StreamableFile> {
+  async downloadFile(@Param('filePath') filePath: string): Promise<StreamableFile> {
     const stream = await this.mediaApiService.getFileStream(filePath);
-    res.set({
-      'Content-Type': 'image/jpeg',
+    return new Promise((resolve, reject) => {
+      stream.on('error', (err) => {
+        reject(new HttpException(err.message, 404));
+      });
+      stream.on('readable', () => {
+        stream.removeAllListeners('readable');
+        resolve(new StreamableFile(stream, { type: 'image/jpeg' }));
+      });
     });
-    return new StreamableFile(stream);
   }
 
   @Post()
